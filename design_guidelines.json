@@ -1,0 +1,46 @@
+{
+  "app_name": "Dr Sawant’s Advanced Homeopathic Clinic",
+  "archetype": "ORGANIC & EARTHY / MEDICAL TRUST",
+  "colors": {
+    "primary": "#1E3A8A",
+    "secondary": "#6366F1",
+    "accent_lavender": "#EDE9FE",
+    "accent_teal": "#14B8A6",
+    "accent_pink": "#FCE7F3",
+    "background": "#FFFFFF",
+    "surface": "#F8FAFC",
+    "text_main": "#0F172A",
+    "text_muted": "#64748B"
+  },
+  "typography": {
+    "heading": "Plus Jakarta Sans, sans-serif",
+    "body": "Inter, sans-serif"
+  },
+  "image_urls": {
+    "hero_doctor": "https://images.unsplash.com/photo-1631217868264-e5b90bb7e133?crop=entropy&cs=srgb&fm=jpg&q=85",
+    "consultation": "https://images.unsplash.com/photo-1758691463198-dc663b8a64e4?crop=entropy&cs=srgb&fm=jpg&q=85",
+    "skin_laser": "https://images.unsplash.com/photo-1713085085470-fba013d67e65?crop=entropy&cs=srgb&fm=jpg&q=85",
+    "clinic_interior": "https://images.unsplash.com/photo-1781513144825-aa1e284c5950?crop=entropy&cs=srgb&fm=jpg&q=85"
+  },
+  "components": [
+    "Navbar with brand text logo, navigation links, booking CTA, WhatsApp and call buttons",
+    "Hero section with tagline, dual CTAs, professional badge, and medical disclaimer",
+    "Trust Points Bar (Certified MD Hom, Individualized Care, FDA-Approved Laser, Strict Hygiene)",
+    "Four Service Cards (Homeopathic Care, Skin Treatments, Hair Restoration, Laser Therapy)",
+    "Concerns Section (Acne, Hair Fall, Chronic Illness, Skin Pigmentation, Allergies)",
+    "Why Choose Us (Root-cause healing, painless procedures, holistic family care)",
+    "About Dr. Vaishnavi Sawant (MD(Hom), BHMS, P.G.P.D.C)",
+    "Four-Step Patient Journey (Consultation -> Assessment -> Personalized Remedy -> Follow-up)",
+    "FAQ with Emergency Disclaimer",
+    "Contact Section with Address (Shop No 1, Shantinath Plaza CHS, Virar West), Map Placeholder, Phone (8446121943), WhatsApp, Hours, and Booking Form with local private storage & WhatsApp click-to-chat",
+    "Mobile Bottom Sticky Action Bar (Call, WhatsApp, Book Appointment)",
+    "Multi-page routes: Home, About Dr Sawant, Homeopathy, Skin Treatments, Hair Treatments, Laser Treatments, Conditions We Address, FAQ, Contact & Book, Privacy Policy, Terms & Disclaimer"
+  ],
+  "instructions_to_main_agent": "Ensure pure white background, generous whitespace, soft lavender/deep blue/teal/muted pink accents, rounded cards (rounded-2xl), subtle shadows, high accessibility, India local schema, mobile-first responsiveness, and full data-testid coverage on all interactive elements.",
+  "universal_guidelines": [
+    "No transparent headers without backdrop blur",
+    "All interactive elements must include data-testid",
+    "Respect mobile constraints and responsive padding"
+  ]
+}
+

@@ -1,0 +1,59 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    font-family: 'Inter', sans-serif;
+  }
+  
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+  }
+}
+
+:root {
+  --primary-blue: #1E3A8A;
+  --secondary-indigo: #6366F1;
+  --accent-lavender: #EDE9FE;
+  --accent-teal: #14B8A6;
+  --accent-pink: #FCE7F3;
+  --surface-light: #F8FAFC;
+}
+
+body {
+  background-color: #FFFFFF;
+  color: #0F172A;
+  margin: 0;
+  padding: 0;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Custom Utilities */
+.bg-gradient-clinic {
+  background: linear-gradient(135deg, #1E3A8A 0%, #3B82F6 100%);
+}
+
+.bg-gradient-soft {
+  background: linear-gradient(180deg, #F8FAFC 0%, #EDE9FE 100%);
+}
+
+.glass-card {
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(226, 232, 240, 0.8);
+}
+
+.shadow-clinic {
+  box-shadow: 0 10px 30px -5px rgba(30, 58, 138, 0.08);
+}
+
+.shadow-clinic-hover {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.shadow-clinic-hover:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 20px 40px -10px rgba(30, 58, 138, 0.15);
+}

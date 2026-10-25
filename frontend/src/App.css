@@ -1,0 +1,237 @@
+/* ============================================================
+   DR. SAWANT'S CLINIC — WHITE · GOLD · NAVY BLUE THEME
+   Only the Instagram button retains its colorful gradient.
+   ============================================================ */
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,700&family=Playfair+Display:ital,wght@0,600;0,700;0,800;0,900;1,600;1,700&display=swap');
+
+/* ── Design tokens ────────────────────────────────────────── */
+:root {
+  --font-sans:  'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+  --font-serif: 'Playfair Display', Georgia, serif;
+
+  /* Palette */
+  --white:       #ffffff;
+  --off-white:   #f8f9fc;        /* page background */
+  --border:      #e2e8f5;        /* soft blue-grey border */
+
+  --gold-50:     #fffbeb;
+  --gold-100:    #fef3c7;
+  --gold-300:    #fcd34d;
+  --gold-500:    #f59e0b;
+  --gold-600:    #d97706;
+  --gold-700:    #b45309;
+  --gold-900:    #78350f;
+
+  --navy-50:     #eff4ff;
+  --navy-100:    #dbeafe;
+  --navy-500:    #3b82f6;
+  --navy-700:    #1d4ed8;
+  --navy-800:    #1e3a8a;
+  --navy-900:    #1e2d5a;
+  --navy-950:    #0f172a;
+}
+
+/* ── Base ─────────────────────────────────────────────────── */
+body {
+  font-family: var(--font-sans);
+  color: var(--navy-950);
+  background-color: var(--off-white);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+
+.App {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background-color: var(--off-white);
+}
+
+/* ── Page canvas (hero, reviews, etc.) ────────────────────── */
+.maximalist-canvas {
+  background-color: var(--white);
+  background-image:
+    radial-gradient(at 0%   0%,   rgba(245,158,11, 0.07) 0px, transparent 50%),
+    radial-gradient(at 100% 0%,   rgba(30, 58,138, 0.06) 0px, transparent 50%),
+    radial-gradient(at 50%  100%, rgba(245,158,11, 0.04) 0px, transparent 50%);
+}
+
+/* ── Dark navy canvas (signboard, about, contact) ─────────── */
+.maximalist-dark-canvas {
+  background:
+    radial-gradient(circle at 10% 20%, rgba(245,158,11, 0.18) 0%, transparent 45%),
+    radial-gradient(circle at 90% 80%, rgba(30, 58,138, 0.25) 0%, transparent 45%),
+    linear-gradient(135deg, #0f172a 0%, #111827 55%, #1e2d5a 100%);
+}
+
+/* ── Generic card ─────────────────────────────────────────── */
+.maximalist-card {
+  background: var(--white);
+  border: 1.5px solid var(--border);
+  box-shadow: 0 4px 20px -4px rgba(30,58,138,0.06), 0 2px 8px -2px rgba(30,58,138,0.04);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  position: relative;
+}
+
+.maximalist-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 16px 40px -6px rgba(30,58,138,0.12), 0 6px 16px -4px rgba(245,158,11,0.10);
+  border-color: rgba(245,158,11, 0.55);
+}
+
+/* ── Medical card (treatment cards) ──────────────────────── */
+.medical-card {
+  background: var(--white);
+  border: 1.5px solid var(--border);
+  box-shadow: 0 4px 20px -4px rgba(30,58,138,0.06);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.medical-card:hover {
+  box-shadow: 0 12px 32px -6px rgba(30,58,138,0.10), 0 4px 12px -4px rgba(245,158,11,0.08);
+  border-color: rgba(245,158,11, 0.50);
+}
+
+/* ── Doctor showcase card ─────────────────────────────────── */
+.maximalist-doctor-card {
+  background: var(--white);
+  border: 2px solid var(--gold-100);
+  box-shadow: 0 12px 36px -6px rgba(245,158,11,0.12), 0 4px 12px -2px rgba(30,58,138,0.06);
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  position: relative;
+  overflow: hidden;
+}
+
+.maximalist-doctor-card:hover {
+  transform: translateY(-5px) scale(1.01);
+  box-shadow: 0 24px 56px -8px rgba(245,158,11,0.18), 0 10px 24px -4px rgba(30,58,138,0.10);
+  border-color: var(--gold-500);
+}
+
+/* Shimmer top accent line on doctor cards */
+.maximalist-doctor-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--gold-500) 0%, var(--navy-700) 50%, var(--gold-500) 100%);
+  background-size: 200% 100%;
+  animation: shimmerAnim 4s linear infinite;
+  z-index: 10;
+}
+
+/* ── Doctor photo positions ───────────────────────────────── */
+.dr-photo-vaishnavi-standing { object-position: 55% 18%; }
+.dr-photo-vaishnavi-seated   { object-position: 50% 16%; }
+.dr-photo-anil               { object-position: 50% 14%; }
+
+/* ── Photo credential overlay bar ────────────────────────── */
+.photo-credential-bar {
+  background: linear-gradient(to right, rgba(15,23,42,0.90), rgba(30,45,90,0.75));
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-top: 1px solid rgba(245,158,11,0.40);
+}
+
+/* ── Badge system — white/gold/blue palette ───────────────── */
+.gold-badge {
+  background: linear-gradient(135deg, var(--gold-50) 0%, var(--gold-100) 60%, #fde68a 100%);
+  color: var(--gold-900);
+  border: 1px solid rgba(217,119,6,0.40);
+  box-shadow: 0 2px 8px rgba(245,158,11,0.20);
+}
+
+/* emerald-badge → now navy-tinted teal for medical trust */
+.emerald-badge {
+  background: linear-gradient(135deg, #ecfdf5 0%, #d1fae5 60%, #a7f3d0 100%);
+  color: #065f46;
+  border: 1px solid rgba(16,185,129,0.35);
+  box-shadow: 0 2px 8px rgba(16,185,129,0.15);
+}
+
+.rose-badge {
+  background: linear-gradient(135deg, #fff1f2 0%, #ffe4e6 60%, #fecdd3 100%);
+  color: #881337;
+  border: 1px solid rgba(244,63,94,0.35);
+  box-shadow: 0 2px 8px rgba(244,63,94,0.12);
+}
+
+/* sapphire → rich navy-blue */
+.sapphire-badge {
+  background: linear-gradient(135deg, var(--navy-50) 0%, var(--navy-100) 60%, #bfdbfe 100%);
+  color: var(--navy-800);
+  border: 1px solid rgba(30,58,138,0.30);
+  box-shadow: 0 2px 8px rgba(30,58,138,0.12);
+}
+
+/* ── Shimmer text — gold → navy → gold ───────────────────── */
+@keyframes shimmerAnim {
+  0%   { background-position: -200% 0; }
+  100% { background-position:  200% 0; }
+}
+
+.shimmer-text {
+  background: linear-gradient(90deg,
+    var(--gold-600)  0%,
+    var(--navy-700) 30%,
+    var(--gold-500) 55%,
+    var(--navy-800) 80%,
+    var(--gold-600) 100%
+  );
+  background-size: 200% auto;
+  color: transparent;
+  -webkit-background-clip: text;
+  background-clip: text;
+  animation: shimmerAnim 6s linear infinite;
+}
+
+/* ── WhatsApp pulse — kept green (brand colour) ──────────── */
+@keyframes wpPulse {
+  0%,100% { box-shadow: 0 0 0 0 rgba(16,185,129,0.55), 0 8px 20px -3px rgba(16,185,129,0.40); }
+  50%     { box-shadow: 0 0 0 10px rgba(16,185,129,0), 0 10px 25px -3px rgba(16,185,129,0.50); }
+}
+.whatsapp-pulse { animation: wpPulse 2.4s ease-in-out infinite; }
+
+/* ── Instagram button — ONLY colorful element ────────────── */
+.instagram-btn {
+  background: linear-gradient(135deg, #f58529 0%, #dd2a7b 40%, #8134af 70%, #515bd4 100%);
+  color: #ffffff;
+  box-shadow: 0 6px 20px -4px rgba(221,42,123,0.45);
+  transition: all 0.3s ease;
+}
+.instagram-btn:hover {
+  box-shadow: 0 10px 28px -4px rgba(221,42,123,0.60);
+  transform: scale(1.04);
+  filter: brightness(1.07);
+}
+
+/* ── Section heading underline ───────────────────────────── */
+.section-heading::after {
+  content: '';
+  display: block;
+  width: 4rem;
+  height: 4px;
+  margin: 0.7rem auto 0;
+  border-radius: 9999px;
+  background: linear-gradient(90deg, var(--gold-500) 0%, var(--navy-700) 100%);
+  box-shadow: 0 2px 8px rgba(245,158,11,0.30);
+}
+
+/* ── Scrollbar ────────────────────────────────────────────── */
+::-webkit-scrollbar       { width: 7px; }
+::-webkit-scrollbar-track { background: var(--off-white); }
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, var(--gold-500) 0%, var(--navy-700) 100%);
+  border-radius: 99px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(180deg, var(--gold-600) 0%, var(--navy-800) 100%);
+}
+
+/* ── Fade-in animation ───────────────────────────────────── */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.animate-fadeIn { animation: fadeIn 0.4s ease both; }
