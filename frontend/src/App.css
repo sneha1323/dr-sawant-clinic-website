@@ -235,3 +235,39 @@ body {
   to   { opacity: 1; transform: translateY(0); }
 }
 .animate-fadeIn { animation: fadeIn 0.4s ease both; }
+
+/* ── Mobile Header Responsive Fix ─────────────────────────── */
+@media (max-width: 639px) {
+  /* Ensure header doesn't overflow */
+  header {
+    overflow-x: hidden;
+  }
+  
+  /* Prevent logo from taking too much space */
+  header .max-w-7xl {
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+  }
+  
+  /* Optimize button text on very small screens */
+  @media (max-width: 360px) {
+    header .max-w-7xl {
+      gap: 0.25rem;
+    }
+  }
+}
+
+/* ── Hamburger menu visibility ────────────────────────────── */
+@media (min-width: 640px) and (max-width: 1023px) {
+  /* Tablet: show only tablet hamburger */
+  .mobile-hamburger {
+    display: none !important;
+  }
+}
+
+@media (max-width: 639px) {
+  /* Mobile: show only mobile hamburger */
+  .tablet-hamburger {
+    display: none !important;
+  }
+}

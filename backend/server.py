@@ -9,6 +9,7 @@ from pydantic import BaseModel, Field, ConfigDict
 from typing import List, Optional
 import uuid
 from datetime import datetime, timezone
+import requests
 
 ROOT_DIR = Path(__file__).parent
 load_dotenv(ROOT_DIR / '.env')
@@ -249,6 +250,80 @@ async def get_services():
             "conditions": ["Laser Hair Reduction", "Carbon Laser", "IPL Laser"]
         }
     ]
+
+# Google Reviews endpoint
+@api_router.get("/google-reviews")
+async def get_google_reviews():
+    """
+    Fetch real Google reviews from Dr. Sawant's Advanced Homeopathic Clinic
+    Google Place ID: ChIJQVGJ5z7f5zsRjeiKHb10Aqo (from the provided link)
+    """
+    try:
+        # Get API key from environment
+        google_api_key = os.environ.get('GOOGLE_PLACES_API_KEY')
+        
+        if not google_api_key:
+            logger.error("GOOGLE_PLACES_API_KEY not found in environment variables")
+            raise HTTPException(
+                status_code=500, 
+                detail="Google API key not configured. Please contact administrator."
+            )
+        
+        # The Place ID extracted from the share link
+        place_id = "ChIJQVGJ5z7f5zsRjeiKHb10Aqo"
+        
+        # Google Places API - Place Details endpoint
+        url = "https://maps.googleapis.com/maps/api/place/details/json"
+        params = {
+            "place_id": place_id,
+            "fields": "name,rating,user_ratings_total,reviews,url",
+            "key": google_api_key
+        }
+        
+        response = requests.get(url, params=params, timeout=10)
+        response.raise_for_status()
+        
+        data = response.json()
+        
+        if data.get("status") != "OK":
+            logger.error(f"Google API error: {data.get('status')} - {data.get('error_message', 'Unknown error')}")
+            raise HTTPException(
+                status_code=500,
+                detail=f"Google API returned: {data.get('status')}"
+            )
+        
+        result = data.get("result", {})
+        reviews = result.get("reviews", [])
+        
+        # Format reviews for frontend
+        formatted_reviews = []
+        for review in reviews[:5]:  # Google returns max 5 reviews
+            formatted_reviews.append({
+                "author_name": review.get("author_name"),
+                "rating": review.get("rating"),
+                "text": review.get("text"),
+                "time": review.get("time"),  # Unix timestamp
+                "relative_time_description": review.get("relative_time_description"),
+                "profile_photo_url": review.get("profile_photo_url"),
+                "author_url": review.get("author_url")
+            })
+        
+        return {
+            "success": True,
+            "place_name": result.get("name"),
+            "overall_rating": result.get("rating"),
+            "total_ratings": result.get("user_ratings_total"),
+            "google_maps_url": result.get("url"),
+            "reviews": formatted_reviews,
+            "note": "Google Places API returns a maximum of 5 reviews per request."
+        }
+        
+    except requests.exceptions.RequestException as e:
+        logger.error(f"Network error fetching Google reviews: {str(e)}")
+        raise HTTPException(status_code=503, detail="Unable to connect to Google Places API")
+    except Exception as e:
+        logger.error(f"Error fetching Google reviews: {str(e)}")
+        raise HTTPException(status_code=500, detail=str(e))
 
 # Include router
 app.include_router(api_router)

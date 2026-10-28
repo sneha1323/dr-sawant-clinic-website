@@ -42,15 +42,19 @@ const CLOSED_DAY = "Thursday Closed";
 const GOOGLE_REVIEWS_LINK = "https://share.google/GxoxtVylJ3eiqe1KU";
 const INSTAGRAM_LINK = "https://www.instagram.com/drsawant_and_drparab?utm_source=ig_web_button_share_sheet&stkn=ZDNlZDc0MzIxNw==";
 
+// Kandivali Branch Details
+const KANDIVALI_ADDRESS = "539 D, 7, RSC Rd Number 55, Sector 5, Sector 5 Charkop, Kandivali West, Mumbai, Maharashtra 400067";
+const KANDIVALI_PHONE = "7021281679";
+
 // DOCTOR QUALIFICATIONS & CREDENTIALS (Referenced from Clinic Signboard)
 const DR_VAISHNAVI_NAME = "Dr. Vaishnavi Sawant Parab";
-const DR_VAISHNAVI_QUALIFICATIONS = "M.D. Hom, P.G.D.P.C., P.G.D.C.C., P.G.D.T.";
+const DR_VAISHNAVI_QUALIFICATIONS = "M.D. (Hom), P.G.D.P.C., P.G.D. Clinical Cosmetology, P.G.D. Trichology";
 const DR_VAISHNAVI_ROLE = "Consulting Homeopathic Physician | Clinical Cosmetologist & Trichologist";
 const DR_VAISHNAVI_REGD = "Reg. No. 68944";
 
 const DR_ANIL_NAME = "Dr. Anil Soma Parab";
-const DR_ANIL_QUALIFICATIONS = "M.D. Hom, P.G.D.P.C., P.G.D.C.C., P.G.D.T., F.M.C.";
-const DR_ANIL_ROLE = "Consulting Homeopathic Physician | Clinical Cosmetologist & Trichologist";
+const DR_ANIL_QUALIFICATIONS = "M.D. (Hom), P.G.D.P.C., P.G.D. Clinical Cosmetology, P.G.D. Trichology";
+const DR_ANIL_ROLE = "Consulting Homeopathic Physician";
 const DR_ANIL_REGD = "Reg. No. 68785";
 
 // CLINICAL STATS UPDATED
@@ -290,13 +294,13 @@ const SERVICES = [
       },
       {
         title: "Hair Microneedling",
-        image: "/high_frequency_haiur.jpg",  // ✓ exists
+        image: "/micron.jpg",  // ✓ exists
         desc: "Scalp microneedling infused with potent hair peptides to dramatically stimulate microcirculation to the hair roots.",
         tag: "Trichology"
       },
       {
         title: "Dandruff Treatment",
-        image: "/dandrufftreatment.jpg",  // ✓ reusing hair microneedling
+        image: "/high_frequency_haiur.jpg",  // ✓ reusing hair microneedling
         desc: "Deep clarifying scalp peeling and constitutional homeopathic care to permanently eliminate stubborn flaking and fungal irritation.",
         tag: "Trichology"
       },
@@ -348,104 +352,92 @@ const SERVICES = [
 ];
 
 // Patient Reviews & Real Cured Cases Data
-// 📸 To add before/after images: set beforeImage and afterImage to the image path (e.g., "/before_acne.jpg")
-// You can download images from Google Maps reviews and place them in the frontend/public folder
-const REVIEWS_AND_CASES = [
+// Google Maps listing for reviews
+const GOOGLE_MAPS_LISTING_URL = "https://share.google/clOAttqXBirdkejWj";
+
+// GENUINE GOOGLE REVIEWS - Manually transcribed from actual Google Maps reviews
+// These are real reviews from real patients of Dr. Vaishnavi Sawant's Virar clinic
+// Source: https://share.google/clOAttqXBirdkejWj
+const VIRAR_GOOGLE_REVIEWS = [
   {
-    category: "Skin",
-    patientName: "Priya Sharma",
-    location: "Virar West",
-    condition: "Severe Cystic Acne & Hormonal PCOS",
-    duration: "Cured in 4 Months",
+    reviewerName: "Sneha Doshi",
     rating: 5,
-    reviewText: "I suffered from painful cystic acne for 3 years due to PCOS. Dr. Vaishnavi Sawant's homeopathic treatment cured my hormonal imbalance internally, and laser therapy removed my acne marks completely. My skin is clear and smooth now!",
-    verified: true,
-    beforeImage: null,  // 👉 Replace with: "/before_priya.jpg"
-    afterImage: null    // 👉 Replace with: "/after_priya.jpg"
+    reviewText: "I've been taking treatment from Dr. Vaishnavi for almost 20 months now for PCOD and migraines, and my experience has been really good so far. She's very kind, friendly and understanding, and always listens to my concerns patiently. Homeopathy does take time , but I've been seeing positive changes with my treatment and with zero side effects. I really appreciate her care and the way she makes her patient feel comfortable ❤️."
   },
   {
-    category: "Hair",
-    patientName: "Rajesh Patil",
-    location: "Vasai Road",
-    condition: "Alopecia Areata & Severe Hair Fall",
-    duration: "Restored in 3 Months",
+    reviewerName: "Riddhesh Pawar",
     rating: 5,
-    reviewText: "I developed 2 bald patches on my scalp due to work stress. Dr. Sawant prescribed targeted homeopathic drops along with scalp therapy. Within 90 days, full hair growth returned. Highly recommended clinic in Virar!",
-    verified: true,
-    beforeImage: null,
-    afterImage: null
+    reviewText: "I was suffering from acne issue and visited to Dr. Vaishnavi she helped to cure this issue, actually homeopathy takes time but it works and genuinely I have seen that happening. So I strongly recommend do trust homeopathy treatment it really works.\n\nAbout Dr. Vaishnavi she is not only a skilled professional but also compassionate. I felt genuinely cared for during my visit.\n\nThank you Doctor"
   },
   {
-    category: "Homeopathy",
-    patientName: "Sneha Kulkarni",
-    location: "Nallasopara West",
-    condition: "Chronic Dust Allergy & Asthma",
-    duration: "Relieved in 8 Weeks",
+    reviewerName: "Harshith Kotian",
     rating: 5,
-    reviewText: "Every winter I used to rely on inhalers and antiallergic tablets daily. Thanks to Dr. Sawant's constitutional homeopathy, my immunity is strong and I haven't needed an inhaler in 6 months!",
-    verified: true,
-    beforeImage: null,
-    afterImage: null
+    reviewText: "My name is Harshith Kotian, and I was facing the problem of alopecia areata. I underwent many treatments for several months and even continued for a year, but unfortunately, there was no improvement. However, after visiting this clinic, my alopecia areata was successfully treated. The bald patch healed, and my hair started growing back. I am very satisfied with the results and thankful for the effective treatment I received by vaishnavi mam"
   },
   {
-    category: "Homeopathy",
-    patientName: "Amit Varma",
-    location: "Virar East",
-    condition: "Kidney Stone (7mm Dissolved)",
-    duration: "Cured in 6 Weeks",
+    reviewerName: "Aruna Murchawade",
     rating: 5,
-    reviewText: "Surgeons recommended surgery for my 7mm renal stone. A relative recommended Dr. Vaishnavi Sawant. Her homeopathic medicines dissolved the stone naturally without any surgery or pain. Very grateful!",
-    verified: true,
-    beforeImage: null,
-    afterImage: null
+    reviewText: "I had a allergic cough for almost more than 1 year...did a lot of medicine, did a lot of doctors..did everything but the cough didn't go away, the allergic cough turned into asthma, Had to take an inhaler. going through a very bad situation. Started treatment with Dr. Vaishnavi Sawant in February 2023 and gave me confidence that I will get you out of this completely and my asthma and allergic cough is completely gone within 6 months. I am living an asthma free life. Thank you so much doctor 😊\n\nShe is a great doctor and great person. They are very humble. Dr. Vaishnavi's treatment is very beneficial. I have had a very good experience, my entire family goes to Dr. Vaishnavi for treatment...\n\nThose who have never experienced homeopathy should definitely experience it...\n\n🙏 🙏 🙏"
   },
   {
-    category: "Skin",
-    patientName: "Meenal Deshmukh",
-    location: "Bhayandar",
-    condition: "Psoriasis & Scalp Scaling",
-    duration: "Controlled in 5 Months",
+    reviewerName: "Kasturi Oulkar",
     rating: 5,
-    reviewText: "My scalp psoriasis flaked constantly and caused severe itching. Dr. Sawant's treatment healed my scalp and controlled flare-ups completely. Excellent medical guidance and super hygienic clinic.",
-    verified: true,
-    beforeImage: null,
-    afterImage: null
+    reviewText: "I have known Vaishnavi on a personal level so I connected to her when I got a skin condition on my face causing hypersensitivity. I couldn't eat well as I would get reactions.. makeup was out of question.. even exposure to sun would cause redness & rashes. But Doctor helped me with my diet, the sessions were helpful & with proper timely medicines it took hardly 2-3 months to cure it altogether.. and it hasn't returned till date. Thanks.\n\nAlso, on a personal level Doc is responsive & considerate. Wish you all the success."
   },
   {
-    category: "Laser",
-    patientName: "Karan Mehta",
-    location: "Palghar",
-    condition: "Unwanted Hair Laser Reduction",
-    duration: "6 Sessions Completed",
+    reviewerName: "Neha Jha",
     rating: 5,
-    reviewText: "Got laser hair removal done for my facial hair shaping. The FDA-approved laser machine used here is totally painless and smooth. Excellent results with zero skin irritation!",
-    verified: true,
-    beforeImage: null,
-    afterImage: null
+    reviewText: "I have consulted Dr. Vaishnavi and been under her treatment for a few health issues over the years and she's taken extremely good care of me. I suffered with chronic migraine headaches and post her treatment, my migraines have completely stopped. Firstly, she is a great listener and deeply empathetic and takes the time to understand the patients history in depth. She has a very friendly demeanor and explains the diagnosis in detail with the treatment options that immediately put me at ease. Highly recommended."
   },
   {
-    category: "Face",
-    patientName: "Rohan Deshmukh",
-    location: "Virar West",
-    condition: "Hydrafacial & Acne Scar Treatment",
-    duration: "4 Sessions Completed",
+    reviewerName: "Manisha Patel",
     rating: 5,
-    reviewText: "Underwent Hydrafacial and clinical cosmetology peeling with Dr. Sawant's clinic. My persistent acne marks faded noticeably and my face texture is so much smoother and clearer!",
-    verified: true,
-    beforeImage: null,
-    afterImage: null
+    reviewText: "Hiii.., this is manisha firstly thanks to Dr.Vaishnavi sawant she is really very good at her job...I had been going through irregular periods since last 2 years....I have taken allopatic medicines but it's not worked for me than my friend has told me about homeopathic treatment so with her suggestion i had taken consultation from dr. Vaishanavi.....so after sonography i got to know that i had a big cyst in my left ovary which is 59mm(113.4 CC )then within the treatment of 4months i glad to see that the cyst is fully desolved which brings me a confidence that a homeopathic treatment can give such a good results, so I like to suggest to consult Dr. Vaishanavi as she is too friendly in giving honest advice.\n\nThankyou 😊"
   },
   {
-    category: "Skin",
-    patientName: "Sunita Mhatre",
-    location: "Vasai",
-    condition: "Wart Removal & Skin Lightening",
-    duration: "1 Session Completed",
+    reviewerName: "shweta misra",
     rating: 5,
-    reviewText: "Got skin tags and facial warts removed painlessly in just 1 visit. The scar-free procedure and following cosmetology lightening therapy gave fantastic results.",
-    verified: true,
-    beforeImage: null,
-    afterImage: null
+    reviewText: "Thank you So much Dr. Vaishnavi. I connected on 28th Feb 2024 for my kid. He was having constipation issue and was getting Viral on monthly basis... So thought let me try for homeopathy\n\n.....\n\nI am grateful 🙏 I tried it . With in one week his constipation issue resolved and even since February to till now he even did not get a single sneeze...\n\nJo bachcha every month antibiotic leta tha for high fever cough and cold... Now he is absolutely fine...\n\nThank you so much Doctor...."
+  },
+  {
+    reviewerName: "subhajit sarkar",
+    rating: 5,
+    reviewText: "We visited the doctor post lockdown. Due to the aftermath of lockdown and recovering from COVID-19, me and my wife were facing some chronic health issues and having relationship issues.\n\nBut after counselling Dr. Vaishnavi, there was a huge difference in our health and relationship.\n\nEarlier I had stress-related health issues, post consultation and medication my reports got better.\n\nAlong with medicines the doctor gives tips and health advices related to lifestyle changes which helps immensely.\n\nWe have also started homeopathic treatment for our child, he is hyperactive but since we started visiting the doctor we have seen some major improvements in his behaviour.\n\nThe doctor is professional and friendly.\n\nHighly recommended."
+  },
+  {
+    reviewerName: "Deep Patel",
+    rating: 5,
+    reviewText: "I had an side effects of allopathy medicines due to which my digestion was heavily affected. Dr. Vaishnavi Sawant maam has really helped me to resolve my overall health issues. Happy to find a positive doctor who supports me and my family whenever in need. Thankyou Maam ✨"
+  },
+  {
+    reviewerName: "Priyanka Gandhi",
+    rating: 5,
+    reviewText: "I had faced pcod problems from 5-6years and had treatment from several doctors. I visited Dr. Sawant's homeopathic clinic. she is a very great listener and takes the time to understand the patients history in depth. I always felt good after visiting her clinic and sharing my problems with her. Now i had cured with my pcod issue withing an year. I would surely recommend everyone to visit her clinic for any treatment."
+  },
+  {
+    reviewerName: "Maitry Mewada",
+    rating: 5,
+    reviewText: "I had white spots on face for which I had visited Dr. Vaishnavi and her medication really helped. Would highly recommend people to visit her in any problem as she is highly professional and really a good doctor to have your checkups done, very supportive throughout the treatment and gave proper guidance to the medicine as well as the diet. Thanku Dr. Vaishnavi"
+  },
+  {
+    reviewerName: "Raju Nalband",
+    rating: 5,
+    reviewText: "I was advised for the immediate surgery for kidney stone of 20mm but Dr vaishnavi Sawant helped us a lot.she take care of patients as if we r family. Her treatment is superb 👍.thank you Dr vaishnavi Sawant."
+  },
+  {
+    reviewerName: "Harsha Raut",
+    rating: 5,
+    reviewText: "After visiting Dr. Vaishnavi's clinic, i started believing in homeopathic. Very kind hearted and my few family members recovered quickly having homeopathic medicines instead of allopathic medicine.. i suggest to visit her clinic for medication."
+  },
+  {
+    reviewerName: "Smita Parab",
+    rating: 5,
+    reviewText: "Very humble doctor. My son had corns on his feet other child specialist guided me to a surgeon\n\nWhile his corn and pain was vanished after Doctor Sawants dose of Homeo Medicine. We are blessed to find a doctor like this."
+  },
+  {
+    reviewerName: "Keval Main",
+    rating: 5,
+    reviewText: "Dr. Vaishnavi is extremely professional. Takes good care of her patients and also takes efforts in educating them."
   }
 ];
 
@@ -528,19 +520,19 @@ const Navbar = () => {
       </div>
 
       <header className="sticky top-0 z-50 bg-white/97 backdrop-blur-md border-b border-amber-200/60 shadow-[0_4px_20px_rgba(30,58,138,0.07)]">
-        <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 h-20 flex items-center justify-between gap-2">
+        <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 h-20 flex items-center justify-between gap-2 sm:gap-3">
           {/* Brand Logo */}
-          <Link to="/" className="flex items-center gap-2 sm:gap-3 py-1 group shrink-0">
-            <div className="flex items-center gap-2 sm:gap-2.5 bg-gradient-to-r from-amber-50/90 via-white to-blue-50/40 px-2.5 sm:px-3.5 py-1.5 rounded-2xl border-2 border-amber-300/80 shadow-md group-hover:border-amber-400 group-hover:shadow-lg transition-all">
-              <span className="font-black text-blue-950 text-xs sm:text-base tracking-tight font-serif">
+          <Link to="/" className="flex items-center gap-2 sm:gap-3 py-1 group shrink-0 min-w-0">
+            <div className="flex items-center gap-1.5 sm:gap-2.5 bg-gradient-to-r from-amber-50/90 via-white to-blue-50/40 px-2 sm:px-3.5 py-1.5 rounded-2xl border-2 border-amber-300/80 shadow-md group-hover:border-amber-400 group-hover:shadow-lg transition-all">
+              <span className="font-black text-blue-950 text-[10px] sm:text-base tracking-tight font-serif">
                 डॉ. सावंत
               </span>
-              <OfficialLotusSymbol className="h-7 w-auto sm:h-9" />
+              <OfficialLotusSymbol className="h-6 w-auto sm:h-9" />
               <div className="flex flex-col leading-tight">
-                <span className="font-extrabold text-blue-950 text-xs sm:text-base tracking-tight">
+                <span className="font-extrabold text-blue-950 text-[11px] sm:text-base tracking-tight">
                   Dr. Sawant's
                 </span>
-                <span className="text-[7.5px] sm:text-[9.5px] text-amber-700 font-extrabold tracking-wider uppercase">
+                <span className="text-[7px] sm:text-[9.5px] text-amber-700 font-extrabold tracking-wider uppercase">
                   Advanced Clinic
                 </span>
               </div>
@@ -560,7 +552,7 @@ const Navbar = () => {
               <Star className="w-4 h-4 fill-amber-400 text-amber-400" />
               <span>Reviews</span>
             </a>
-            <a href="#conditions" data-testid={HOME.navConditions} className="hover:text-amber-600 transition hover:scale-105">Conditions</a>
+            <a href="#branches" className="hover:text-amber-600 transition hover:scale-105">Branches</a>
             <a href="#faq" data-testid={HOME.navFaq} className="hover:text-amber-600 transition hover:scale-105">FAQ</a>
             <a href="#contact" data-testid={HOME.navContact} className="hover:text-amber-600 transition hover:scale-105">Contact</a>
           </nav>
@@ -597,23 +589,26 @@ const Navbar = () => {
             </button>
           </div>
 
-          {/* Mobile buttons */}
+          {/* Mobile buttons and hamburger menu */}
           <div className="flex sm:hidden items-center gap-1.5 shrink-0">
-            <a href={`tel:${CLINIC_PHONE}`} className="flex items-center gap-1 px-2.5 py-1.5 rounded-xl bg-amber-50 text-amber-900 text-xs font-bold border border-amber-200 active:scale-95 transition">
+            <a href={`tel:${CLINIC_PHONE}`} className="flex items-center gap-1 px-2 py-1.5 rounded-xl bg-amber-50 text-amber-900 text-xs font-bold border border-amber-200 active:scale-95 transition">
               <Phone className="w-3.5 h-3.5 text-amber-700" />
               <span>Call</span>
             </a>
-            <button onClick={() => openWhatsAppBooking()} className="whatsapp-pulse flex items-center gap-1 px-2.5 py-1.5 rounded-xl bg-emerald-600 text-white text-xs font-bold shadow-md active:scale-95 transition">
+            <button onClick={() => openWhatsAppBooking()} className="whatsapp-pulse flex items-center gap-1 px-2 py-1.5 rounded-xl bg-emerald-600 text-white text-xs font-bold shadow-md active:scale-95 transition">
               <MessageSquare className="w-3.5 h-3.5" />
               <span>WhatsApp</span>
             </button>
+            <button onClick={() => setMobileMenuOpen(!mobileMenuOpen)} className="p-1.5 text-blue-900 hover:bg-amber-50 rounded-lg active:scale-95 transition" aria-label="Toggle menu">
+              {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+            </button>
           </div>
-        </div>
 
-        {/* Tablet menu toggle */}
-        <button onClick={() => setMobileMenuOpen(!mobileMenuOpen)} className="hidden sm:inline-flex lg:hidden p-2 text-blue-900 hover:bg-amber-50 rounded-lg shrink-0" aria-label="Toggle menu">
-          {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
-        </button>
+          {/* Tablet menu toggle */}
+          <button onClick={() => setMobileMenuOpen(!mobileMenuOpen)} className="hidden sm:inline-flex lg:hidden p-2 text-blue-900 hover:bg-amber-50 rounded-lg shrink-0" aria-label="Toggle menu">
+            {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+          </button>
+        </div>
       </header>
 
       {/* Mobile Drawer */}
@@ -631,8 +626,8 @@ const Navbar = () => {
           <a href="#reviews" onClick={() => setMobileMenuOpen(false)} className="block py-2">
             Reviews & Cured Cases
           </a>
-          <a href="#conditions" onClick={() => setMobileMenuOpen(false)} className="block py-2">
-            Conditions We Address
+          <a href="#branches" onClick={() => setMobileMenuOpen(false)} className="block py-2">
+            Our Branches
           </a>
           <a href="#faq" onClick={() => setMobileMenuOpen(false)} className="block py-2">
             FAQ
@@ -680,17 +675,12 @@ const MainHome = () => {
   // activeService is "all" by default (renders 4 department cards). When clicked, switches to "homeopathy", "skin", "hair", or "laser"
   const [activeService, setActiveService] = useState("all");
   const [skinSubFilter, setSkinSubFilter] = useState("all"); // "all", "face", "skin"
-  const [reviewFilter, setReviewFilter] = useState("All");
   const [openFaq, setOpenFaq] = useState(0);
   const [deptIndex, setDeptIndex] = useState(0);
 
   // Step through the 4 departments one after another (wraps around)
   const goToDept = (next) =>
     setDeptIndex((i) => (next ? (i + 1) % SERVICES.length : (i - 1 + SERVICES.length) % SERVICES.length));
-
-  const filteredReviews = reviewFilter === "All"
-    ? REVIEWS_AND_CASES
-    : REVIEWS_AND_CASES.filter(r => r.category === reviewFilter);
 
   return (
     <div className="flex-1 space-y-16 pb-20">
@@ -779,16 +769,20 @@ const MainHome = () => {
                     className="w-full h-full object-cover dr-photo-vaishnavi-standing group-hover:scale-105 transition-transform duration-700"
                   />
                   {/* Soft gradient only at bottom */}
-                  <div className="absolute inset-x-0 bottom-0 h-28 bg-gradient-to-t from-stone-950/85 via-stone-950/30 to-transparent"></div>
+                  <div className="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-stone-950/90 via-stone-950/40 to-transparent"></div>
                   {/* Top badge */}
                   <span className="absolute top-2.5 left-2.5 right-2.5 bg-white/92 backdrop-blur-md text-stone-900 text-[10px] font-black px-2.5 py-1 rounded-full shadow-md border border-amber-300 flex items-center gap-1.5">
                     <ShieldCheck className="w-3 h-3 text-emerald-600 shrink-0" />
                     <span className="truncate">Verified Physician</span>
                   </span>
                   {/* Bottom credential bar */}
-                  <div className="photo-credential-bar absolute inset-x-0 bottom-0 px-3 py-2.5">
-                    <div className="text-[10px] font-black text-amber-300 truncate">{DR_VAISHNAVI_NAME}</div>
-                    <div className="text-[9px] text-slate-300 font-bold truncate">{DR_VAISHNAVI_QUALIFICATIONS}</div>
+                  <div className="photo-credential-bar absolute inset-x-0 bottom-0 px-3 py-3">
+                    <div className="text-[10px] font-black text-amber-300 leading-tight mb-1">{DR_VAISHNAVI_NAME}</div>
+                    <div className="text-[8.5px] text-slate-200 font-bold leading-relaxed">
+                      M.D. (Hom), P.G.D.P.C.,<br/>
+                      P.G.D. Clinical Cosmetology,<br/>
+                      P.G.D. Trichology
+                    </div>
                   </div>
                 </div>
                 {/* Info panel */}
@@ -799,7 +793,7 @@ const MainHome = () => {
                       {[...Array(5)].map((_, i) => <Star key={i} className="w-3 h-3 fill-amber-400" />)}
                     </div>
                   </div>
-                  <p className="text-[10px] text-emerald-800 font-bold leading-tight">Homeopathic Physician &amp; Counseling</p>
+                  <p className="text-[10px] text-emerald-800 font-bold leading-tight">Homeopathic Physician, Clinical Cosmetologist &amp; Trichologist</p>
                   <p className="text-[10px] text-stone-500 font-bold flex items-center gap-1">
                     <CheckCircle2 className="w-3 h-3 text-emerald-600 shrink-0" />
                     <span>{DR_VAISHNAVI_REGD}</span>
@@ -826,30 +820,33 @@ const MainHome = () => {
                   <div className="hidden w-full h-full bg-gradient-to-br from-teal-50 to-emerald-50 items-center justify-center">
                     <User className="w-16 h-16 text-teal-300" />
                   </div>
-                  <div className="absolute inset-x-0 bottom-0 h-28 bg-gradient-to-t from-stone-950/85 via-stone-950/30 to-transparent"></div>
+                  <div className="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-stone-950/90 via-stone-950/40 to-transparent"></div>
                   <span className="absolute top-2.5 left-2.5 right-2.5 bg-white/92 backdrop-blur-md text-stone-900 text-[10px] font-black px-2.5 py-1 rounded-full shadow-md border border-emerald-300 flex items-center gap-1.5">
                     <ShieldCheck className="w-3 h-3 text-emerald-600 shrink-0" />
-                    <span className="truncate">F.M.C. Certified</span>
+                    <span className="truncate">M.D. (Hom) Certified</span>
                   </span>
-                  <div className="photo-credential-bar absolute inset-x-0 bottom-0 px-3 py-2.5">
-                    <div className="text-[10px] font-black text-teal-300 truncate">{DR_ANIL_NAME}</div>
-                    <div className="text-[9px] text-slate-300 font-bold truncate">{DR_ANIL_QUALIFICATIONS}</div>
+                  <div className="photo-credential-bar absolute inset-x-0 bottom-0 px-3 py-3">
+                    <div className="text-[10px] font-black text-teal-300 leading-tight mb-1">{DR_ANIL_NAME}</div>
+                    <div className="text-[8.5px] text-slate-200 font-bold leading-relaxed">
+                      M.D. (Hom), P.G.D.P.C.,<br/>
+                      P.G.D.C.C.
+                    </div>
                   </div>
                 </div>
                 <div className="flex-1 p-3.5 bg-white space-y-1.5">
                   <div className="flex items-center justify-between">
-                    <span className="text-[10px] font-black text-emerald-800 bg-emerald-50 px-2 py-0.5 rounded-full border border-emerald-200/80">F.M.C.</span>
+                    <span className="text-[10px] font-black text-emerald-800 bg-emerald-50 px-2 py-0.5 rounded-full border border-emerald-200/80">MD (Hom)</span>
                     <div className="flex text-amber-400">
                       {[...Array(5)].map((_, i) => <Star key={i} className="w-3 h-3 fill-amber-400" />)}
                     </div>
                   </div>
-                  <p className="text-[10px] text-emerald-800 font-bold leading-tight">Homeopathic Physician</p>
+                  <p className="text-[10px] text-emerald-800 font-bold leading-tight">Consulting Homeopathic Physician</p>
                   <p className="text-[10px] text-stone-500 font-bold flex items-center gap-1">
                     <CheckCircle2 className="w-3 h-3 text-emerald-600 shrink-0" />
                     <span>{DR_ANIL_REGD}</span>
                   </p>
                   <button
-                    onClick={() => openWhatsAppBooking("Cosmetology Consultation")}
+                    onClick={() => openWhatsAppBooking("Consultation")}
                     className="w-full bg-gradient-to-r from-teal-600 to-emerald-600 hover:from-teal-500 hover:to-emerald-500 text-white font-black py-2 rounded-xl text-[10px] transition flex items-center justify-center gap-1 shadow-md mt-1"
                   >
                     <MessageSquare className="w-3 h-3" />
@@ -1282,151 +1279,96 @@ const MainHome = () => {
         })()}
       </section>
 
-      {/* PATIENT REVIEWS & REAL CURED CASES SECTION */}
+      {/* GENUINE GOOGLE REVIEWS SECTION - VIRAR CLINIC */}
       <section id="reviews" className="maximalist-canvas py-20 border-b border-slate-200/80 relative overflow-hidden">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12 relative z-10">
           
           <div className="text-center space-y-4 max-w-3xl mx-auto">
             <div className="gold-badge inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-black uppercase tracking-wider shadow-sm">
               <Star className="w-4 h-4 fill-amber-700 text-amber-700" />
-              <span>4.9 / 5.0 RATED ON GOOGLE &bull; 2500+ CURED CASES</span>
+              <span>GENUINE GOOGLE REVIEWS &bull; VIRAR CLINIC</span>
             </div>
             <h2 className="text-3xl sm:text-5xl font-black text-slate-950 tracking-tight drop-shadow-xs">
-              Real Patient Recovery &amp; <span className="shimmer-text">Cured Cases</span>
+              What Our Patients Say <span className="shimmer-text">About Us</span>
             </h2>
             <p className="text-slate-600 text-sm sm:text-base leading-relaxed font-medium">
-              Read genuine reviews and success stories from patients cured of chronic ailments, skin conditions, facial issues, and hair loss under Dr. Vaishnavi Sawant and Dr. Anil Parab's care.
+              Real reviews from real patients, manually transcribed from our Google Maps listing.
             </p>
+            <div className="flex items-center justify-center gap-2 text-sm">
+              <div className="flex text-amber-400">
+                {[...Array(5)].map((_, i) => (
+                  <Star key={i} className="w-5 h-5 fill-amber-400" />
+                ))}
+              </div>
+              <span className="font-black text-slate-900">5.0/5.0</span>
+              <span className="text-slate-600">({VIRAR_GOOGLE_REVIEWS.length} reviews shown)</span>
+            </div>
           </div>
 
-          {/* Filter Bar */}
-          <div className="flex flex-wrap justify-center gap-2.5">
-            {["All", "Homeopathy", "Skin", "Face", "Hair", "Laser"].map((cat) => (
-              <button
-                key={cat}
-                onClick={() => setReviewFilter(cat)}
-                className={`px-5 py-2.5 rounded-2xl text-xs font-black transition-all ${
-                  reviewFilter === cat
-                    ? "bg-gradient-to-r from-blue-900 to-blue-950 text-amber-300 shadow-xl border border-amber-400/50 scale-105"
-                    : "bg-white hover:bg-blue-50 text-blue-900 border border-blue-100 shadow-sm"
-                }`}
-              >
-                {cat === "All" ? "All Success Stories" : `${cat} Cases`}
-              </button>
-            ))}
-          </div>
-
-          {/* Review Cards Grid */}
+          {/* Google Reviews Grid */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {filteredReviews.map((rev, idx) => (
+            {VIRAR_GOOGLE_REVIEWS.map((review, idx) => (
               <div
                 key={idx}
                 className="maximalist-card bg-white rounded-3xl border-2 border-slate-200/90 flex flex-col justify-between space-y-4 relative overflow-hidden shadow-lg group hover:border-amber-400 transition-all duration-300"
               >
-                {/* Before / After Images (shown when available) */}
-                {(rev.beforeImage || rev.afterImage) && (
-                  <div className="relative border-b-2 border-amber-400/40">
-                    <div className="grid grid-cols-2 h-48">
-                      {/* Before */}
-                      <div className="relative overflow-hidden">
-                        {rev.beforeImage ? (
-                          <img
-                            src={rev.beforeImage}
-                            alt={`Before - ${rev.condition}`}
-                            className="w-full h-full object-cover group-hover:scale-105 transition duration-500"
-                          />
-                        ) : (
-                          <div className="w-full h-full bg-slate-200 flex items-center justify-center">
-                            <span className="text-xs text-slate-400">No Image</span>
-                          </div>
-                        )}
-                        <span className="absolute bottom-2.5 left-2.5 text-[10px] font-black bg-rose-700/90 text-white px-2.5 py-0.5 rounded-full shadow-md backdrop-blur-xs">
-                          BEFORE
-                        </span>
-                      </div>
-                      {/* After */}
-                      <div className="relative overflow-hidden border-l-2 border-amber-300/80">
-                        {rev.afterImage ? (
-                          <img
-                            src={rev.afterImage}
-                            alt={`After - ${rev.condition}`}
-                            className="w-full h-full object-cover group-hover:scale-105 transition duration-500"
-                          />
-                        ) : (
-                          <div className="w-full h-full bg-slate-200 flex items-center justify-center">
-                            <span className="text-xs text-slate-400">No Image</span>
-                          </div>
-                        )}
-                        <span className="absolute bottom-2.5 right-2.5 text-[10px] font-black bg-emerald-600/95 text-white px-2.5 py-0.5 rounded-full shadow-md backdrop-blur-xs">
-                          AFTER
-                        </span>
-                      </div>
-                    </div>
-                    {/* Category badge */}
-                    <span className="absolute top-2.5 left-2.5 text-[10.5px] font-black sapphire-badge px-3 py-1 rounded-full shadow-sm">
-                      {rev.category}
+                <div className="space-y-3 px-6 pt-6">
+                  {/* Google Badge */}
+                  <div className="absolute top-3 right-3">
+                    <span className="text-[10px] font-black bg-blue-100 text-blue-900 px-2.5 py-1 rounded-full border border-blue-200">
+                      GOOGLE REVIEW
                     </span>
                   </div>
-                )}
 
-                <div className="space-y-3 px-6 pt-4">
-                  <div className="flex items-center justify-between">
+                  {/* Rating */}
+                  <div className="flex items-center gap-2">
                     <div className="flex text-amber-400">
-                      {[...Array(rev.rating)].map((_, i) => (
-                        <Star key={i} className="w-4 h-4 fill-amber-400" />
+                      {[...Array(5)].map((_, i) => (
+                        <Star key={i} className={`w-4 h-4 ${i < review.rating ? 'fill-amber-400' : 'fill-gray-200'}`} />
                       ))}
                     </div>
-                    <span className="text-[11px] font-black text-emerald-800 emerald-badge px-3 py-0.5 rounded-full shadow-xs">
-                      {rev.duration}
-                    </span>
                   </div>
 
-                  <div className="bg-gradient-to-r from-blue-50/80 to-indigo-50/60 p-3.5 rounded-2xl border border-blue-100">
-                    <div className="text-[11px] font-black text-blue-900 uppercase tracking-wider">
-                      Condition Cured:
-                    </div>
-                    <div className="font-black text-base text-slate-900">
-                      {rev.condition}
-                    </div>
-                  </div>
-
-                  <p className="text-slate-600 text-xs sm:text-sm leading-relaxed italic relative">
+                  {/* Review Text */}
+                  <p className="text-slate-700 text-sm leading-relaxed relative min-h-[120px] whitespace-pre-line">
                     <Quote className="w-5 h-5 text-blue-200 absolute -top-2 -left-2 -z-10" />
-                    "{rev.reviewText}"
+                    "{review.reviewText}"
                   </p>
                 </div>
 
-                <div className="px-6 pb-5 pt-3 border-t border-slate-100 flex items-center justify-between text-xs">
+                {/* Reviewer Info */}
+                <div className="px-6 pb-5 pt-3 border-t border-slate-100 flex items-center justify-between">
                   <div>
-                    <div className="font-extrabold text-slate-900">{rev.patientName}</div>
-                    <div className="text-slate-400 text-[11px]">{rev.location}</div>
+                    <div className="font-extrabold text-slate-900 text-sm">{review.reviewerName}</div>
+                    <div className="text-[11px] text-slate-500">Verified Patient</div>
                   </div>
-                  <a
-                    href={GOOGLE_REVIEWS_LINK}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex items-center gap-1.5 text-[11px] font-black text-blue-950 emerald-badge px-3 py-1.5 rounded-xl border border-emerald-300 transition hover:scale-105"
-                  >
-                    <CheckCircle2 className="w-3.5 h-3.5 text-emerald-800" />
-                    <span>Verified Patient</span>
-                  </a>
+                  <CheckCircle2 className="w-5 h-5 text-emerald-600 shrink-0" title="Verified Google Review" />
                 </div>
               </div>
             ))}
           </div>
 
-          {/* External Google Reviews Callout */}
+          {/* Source Attribution */}
+          <div className="text-center text-xs text-slate-500 italic space-y-2 pt-4">
+            <p>Reviews manually transcribed from our official Google Maps listing.</p>
+            <p>Source: Dr. Vaishnavi Sawant – Dr. Sawant's Advanced Homeopathic Clinic, Virar</p>
+          </div>
+
+          {/* Read All Reviews Button */}
           <div className="text-center pt-4">
             <a
-              href={GOOGLE_REVIEWS_LINK}
+              href={GOOGLE_MAPS_LISTING_URL}
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center gap-2 bg-gradient-to-r from-blue-900 to-blue-950 hover:from-blue-800 hover:to-blue-900 text-amber-300 border border-amber-400/50 font-black px-7 py-3.5 rounded-2xl shadow-xl text-sm transition hover:scale-105"
             >
               <Star className="w-4 h-4 fill-amber-400 text-amber-400" />
-              <span>Read All Verified Google Reviews</span>
+              <span>Read ALL Reviews on Google Maps</span>
               <ArrowRight className="w-4 h-4 text-amber-300" />
             </a>
+            <p className="mt-3 text-xs text-slate-500">
+              Opens: Dr. Vaishnavi Sawant — Dr. Sawant's Advanced Homeopathic Clinic, Virar
+            </p>
           </div>
 
         </div>
@@ -1834,6 +1776,187 @@ const MainHome = () => {
               </button>
             </div>
           </div>
+        </div>
+      </section>
+
+      {/* OUR CLINIC BRANCHES SECTION */}
+      <section id="branches" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+        <div className="text-center space-y-4 mb-12">
+          <div className="sapphire-badge inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-black uppercase tracking-wider shadow-sm">
+            <MapPin className="w-4 h-4 text-blue-900" />
+            <span>MULTIPLE LOCATIONS TO SERVE YOU</span>
+          </div>
+          <h2 className="text-3xl sm:text-4xl font-black text-slate-950 tracking-tight">
+            Visit Our Clinic Branches
+          </h2>
+          <p className="text-slate-600 text-sm sm:text-base max-w-2xl mx-auto leading-relaxed font-medium">
+            We operate two state-of-the-art homeopathic clinics offering comprehensive care for all your health needs.
+          </p>
+        </div>
+
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+          
+          {/* BRANCH 1 - VIRAR WEST */}
+          <div className="maximalist-card bg-white rounded-3xl border-2 border-slate-200/90 overflow-hidden shadow-lg hover:shadow-2xl hover:border-amber-400 transition-all duration-300 group">
+            {/* Branch Header */}
+            <div className="bg-gradient-to-r from-blue-900 to-blue-950 text-white p-6 relative overflow-hidden">
+              <div className="absolute -right-10 -top-10 w-40 h-40 bg-amber-400/10 rounded-full blur-3xl"></div>
+              <div className="relative z-10">
+                <div className="flex items-center justify-between mb-3">
+                  <span className="gold-badge text-xs font-black px-3 py-1 rounded-full">
+                    MAIN BRANCH
+                  </span>
+                  <MapPin className="w-6 h-6 text-amber-400" />
+                </div>
+                <h3 className="text-xl sm:text-2xl font-black mb-2 text-amber-300">
+                  Virar West
+                </h3>
+                <p className="text-sm text-slate-300 font-bold">
+                  Dr. Vaishnavi Sawant – Dr. Sawant's Advanced Homeopathic Clinic
+                </p>
+              </div>
+            </div>
+
+            {/* Branch Details */}
+            <div className="p-6 space-y-4">
+              <div className="flex items-start gap-3 text-sm">
+                <MapPin className="w-5 h-5 text-amber-600 shrink-0 mt-0.5" />
+                <div>
+                  <div className="font-bold text-slate-900 mb-1">Location</div>
+                  <div className="text-slate-600 leading-relaxed">
+                    Shop No 1, Shantinath Plaza CHS, Virar West, Maharashtra 401303
+                  </div>
+                </div>
+              </div>
+
+              <div className="flex items-start gap-3 text-sm">
+                <Clock className="w-5 h-5 text-teal-600 shrink-0 mt-0.5" />
+                <div>
+                  <div className="font-bold text-slate-900 mb-1">Consulting Hours</div>
+                  <div className="text-slate-600">{CONSULTING_HOURS}</div>
+                  <div className="text-rose-600 font-black text-xs mt-1">{CLOSED_DAY}</div>
+                </div>
+              </div>
+
+              <div className="flex items-center gap-3 text-sm">
+                <Phone className="w-5 h-5 text-blue-600 shrink-0" />
+                <div>
+                  <div className="font-bold text-slate-900 mb-1">Contact</div>
+                  <a href={`tel:${CLINIC_PHONE}`} className="text-blue-600 hover:text-blue-800 font-bold hover:underline">
+                    +91 {CLINIC_PHONE}
+                  </a>
+                  <span className="text-slate-500 mx-1">/</span>
+                  <a href={`tel:${CLINIC_PHONE_SECONDARY}`} className="text-blue-600 hover:text-blue-800 font-bold hover:underline">
+                    +91 {CLINIC_PHONE_SECONDARY}
+                  </a>
+                </div>
+              </div>
+
+              {/* Action Buttons */}
+              <div className="pt-4 flex flex-col sm:flex-row gap-3">
+                <a
+                  href="https://share.google/clOAttqXBirdkejWj"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex-1 bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white font-black py-3 px-4 rounded-xl text-sm flex items-center justify-center gap-2 shadow-lg transition group-hover:scale-105"
+                >
+                  <MapPin className="w-4 h-4" />
+                  <span>Get Directions</span>
+                  <ArrowRight className="w-4 h-4" />
+                </a>
+                <a
+                  href="https://share.google/clOAttqXBirdkejWj"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex-1 bg-white hover:bg-blue-50 text-blue-900 font-bold py-3 px-4 rounded-xl text-sm flex items-center justify-center gap-2 border-2 border-blue-200 transition"
+                >
+                  <Star className="w-4 h-4 fill-amber-400 text-amber-400" />
+                  <span>View on Google Maps</span>
+                </a>
+              </div>
+            </div>
+          </div>
+
+          {/* BRANCH 2 - KANDIVALI WEST */}
+          <div className="maximalist-card bg-white rounded-3xl border-2 border-slate-200/90 overflow-hidden shadow-lg hover:shadow-2xl hover:border-amber-400 transition-all duration-300 group">
+            {/* Branch Header */}
+            <div className="bg-gradient-to-r from-emerald-700 to-teal-800 text-white p-6 relative overflow-hidden">
+              <div className="absolute -right-10 -top-10 w-40 h-40 bg-amber-400/10 rounded-full blur-3xl"></div>
+              <div className="relative z-10">
+                <div className="flex items-center justify-between mb-3">
+                  <span className="emerald-badge text-xs font-black px-3 py-1 rounded-full">
+                    BRANCH
+                  </span>
+                  <MapPin className="w-6 h-6 text-amber-300" />
+                </div>
+                <h3 className="text-xl sm:text-2xl font-black mb-2 text-amber-300">
+                  Kandivali West
+                </h3>
+                <p className="text-sm text-slate-200 font-bold">
+                  Prakriti Advanced Homeopathic Clinic
+                </p>
+              </div>
+            </div>
+
+            {/* Branch Details */}
+            <div className="p-6 space-y-4">
+              <div className="flex items-start gap-3 text-sm">
+                <MapPin className="w-5 h-5 text-emerald-600 shrink-0 mt-0.5" />
+                <div>
+                  <div className="font-bold text-slate-900 mb-1">Location</div>
+                  <div className="text-slate-600 leading-relaxed">
+                    {KANDIVALI_ADDRESS}
+                  </div>
+                </div>
+              </div>
+
+              <div className="flex items-center gap-3 text-sm">
+                <Phone className="w-5 h-5 text-emerald-600 shrink-0" />
+                <div>
+                  <div className="font-bold text-slate-900 mb-1">Contact</div>
+                  <a href={`tel:${KANDIVALI_PHONE}`} className="text-emerald-600 hover:text-emerald-800 font-bold hover:underline">
+                    +91 {KANDIVALI_PHONE}
+                  </a>
+                </div>
+              </div>
+
+              <div className="bg-emerald-50 border border-emerald-200 rounded-xl p-4 text-sm">
+                <div className="flex items-start gap-2">
+                  <Activity className="w-4 h-4 text-emerald-700 shrink-0 mt-0.5" />
+                  <div className="text-emerald-900">
+                    <div className="font-black text-xs uppercase tracking-wider mb-1">Professional Care</div>
+                    <div className="text-xs leading-relaxed">
+                      Comprehensive homeopathic treatments in a modern clinical setting
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Action Buttons */}
+              <div className="pt-4 flex flex-col sm:flex-row gap-3">
+                <a
+                  href="https://maps.app.goo.gl/ziDyuLZmhaveXNBL7"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex-1 bg-gradient-to-r from-emerald-600 to-teal-700 hover:from-emerald-700 hover:to-teal-800 text-white font-black py-3 px-4 rounded-xl text-sm flex items-center justify-center gap-2 shadow-lg transition group-hover:scale-105"
+                >
+                  <MapPin className="w-4 h-4" />
+                  <span>Get Directions</span>
+                  <ArrowRight className="w-4 h-4" />
+                </a>
+                <a
+                  href="https://maps.app.goo.gl/ziDyuLZmhaveXNBL7"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex-1 bg-white hover:bg-emerald-50 text-emerald-900 font-bold py-3 px-4 rounded-xl text-sm flex items-center justify-center gap-2 border-2 border-emerald-200 transition"
+                >
+                  <Star className="w-4 h-4 fill-amber-400 text-amber-400" />
+                  <span>View on Google Maps</span>
+                </a>
+              </div>
+            </div>
+          </div>
+
         </div>
       </section>
 
