@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
 import { HOME } from "@/constants/testIds";
 import "@/App.css";
@@ -30,7 +30,8 @@ import {
   ArrowLeft,
   Grid,
   ChevronLeft,
-  ChevronRight
+  ChevronRight,
+  ArrowUp
 } from "lucide-react";
 
 const CLINIC_PHONE = "8446121943";
@@ -80,13 +81,87 @@ const OfficialLotusSymbol = ({ className = "h-9 w-auto", isDark = false }) => {
 
 
 // Helper function to handle WhatsApp-only appointment bookings
-const openWhatsAppBooking = (treatmentName = "") => {
-  let text = "Hello Dr. Sawant's Clinic, I would like to book an appointment for consultation.";
-  if (treatmentName) {
-    text = `Hello Dr. Sawant's Clinic, I would like to book an appointment for ${treatmentName}.`;
+const openWhatsAppBooking = (treatmentName = "", doctorName = "") => {
+  let text = "Hello, I would like to enquire about an appointment at Dr. Sawant's Advanced Homeopathic Clinic.";
+  
+  if (doctorName && treatmentName) {
+    text = `Hello, I would like to book an appointment with ${doctorName} for ${treatmentName}.`;
+  } else if (doctorName) {
+    text = `Hello, I would like to book an appointment with ${doctorName}.`;
+  } else if (treatmentName) {
+    text = `Hello, I would like to book an appointment for ${treatmentName}.`;
   }
+  
   const url = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(text)}`;
   window.open(url, "_blank");
+};
+
+// Custom Hook: Scroll Reveal Animation
+const useScrollReveal = () => {
+  useEffect(() => {
+    // Check if user prefers reduced motion
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (prefersReducedMotion) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('revealed');
+            // Only observe once for performance
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      {
+        threshold: 0.1,
+        rootMargin: '0px 0px -50px 0px'
+      }
+    );
+
+    const elements = document.querySelectorAll('.scroll-reveal, .scroll-reveal-left, .scroll-reveal-right, .scroll-reveal-scale');
+    elements.forEach((el) => observer.observe(el));
+
+    return () => observer.disconnect();
+  }, []);
+};
+
+// Custom Hook: Back to Top Button
+const useBackToTop = () => {
+  const [showBackToTop, setShowBackToTop] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setShowBackToTop(window.scrollY > 400);
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+  return { showBackToTop, scrollToTop };
+};
+
+// Smooth scroll to section with offset for sticky header
+const scrollToSection = (e, href) => {
+  e.preventDefault();
+  const targetId = href.replace('#', '');
+  const element = document.getElementById(targetId);
+  
+  if (element) {
+    const headerOffset = 80; // Height of sticky header
+    const elementPosition = element.getBoundingClientRect().top;
+    const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+
+    window.scrollTo({
+      top: offsetPosition,
+      behavior: 'smooth'
+    });
+  }
 };
 
 // Department Overview Data & Department Specific Conditions
@@ -545,16 +620,16 @@ const Navbar = () => {
 
           {/* Desktop Navigation */}
           <nav className="hidden lg:flex items-center gap-6 font-semibold text-blue-900 text-sm">
-            <Link to="/" data-testid={HOME.navHome} className="hover:text-amber-600 transition hover:scale-105">Home</Link>
-            <a href="#about" data-testid={HOME.navAbout} className="hover:text-amber-600 transition hover:scale-105">About Doctors</a>
-            <a href="#services" data-testid={HOME.navServices} className="hover:text-amber-600 transition hover:scale-105">Departments</a>
-            <a href="#reviews" className="hover:text-amber-600 transition hover:scale-105 flex items-center gap-1">
+            <Link to="/" data-testid={HOME.navHome} className="nav-link hover:text-amber-600 transition hover:scale-105">Home</Link>
+            <a href="#about" data-testid={HOME.navAbout} onClick={(e) => scrollToSection(e, '#about')} className="nav-link hover:text-amber-600 transition hover:scale-105">About Doctors</a>
+            <a href="#services" data-testid={HOME.navServices} onClick={(e) => scrollToSection(e, '#services')} className="nav-link hover:text-amber-600 transition hover:scale-105">Departments</a>
+            <a href="#reviews" onClick={(e) => scrollToSection(e, '#reviews')} className="nav-link hover:text-amber-600 transition hover:scale-105 flex items-center gap-1">
               <Star className="w-4 h-4 fill-amber-400 text-amber-400" />
               <span>Reviews</span>
             </a>
-            <a href="#branches" className="hover:text-amber-600 transition hover:scale-105">Branches</a>
-            <a href="#faq" data-testid={HOME.navFaq} className="hover:text-amber-600 transition hover:scale-105">FAQ</a>
-            <a href="#contact" data-testid={HOME.navContact} className="hover:text-amber-600 transition hover:scale-105">Contact</a>
+            <a href="#branches" onClick={(e) => scrollToSection(e, '#branches')} className="nav-link hover:text-amber-600 transition hover:scale-105">Branches</a>
+            <a href="#faq" data-testid={HOME.navFaq} onClick={(e) => scrollToSection(e, '#faq')} className="nav-link hover:text-amber-600 transition hover:scale-105">FAQ</a>
+            <a href="#contact" data-testid={HOME.navContact} onClick={(e) => scrollToSection(e, '#contact')} className="nav-link hover:text-amber-600 transition hover:scale-105">Contact</a>
           </nav>
 
           {/* Desktop Action Buttons */}
@@ -582,7 +657,7 @@ const Navbar = () => {
             <button
               onClick={() => openWhatsAppBooking()}
               data-testid={HOME.whatsappBtn}
-              className="whatsapp-pulse flex items-center gap-2 px-4 py-2.5 text-xs sm:text-sm font-black text-white bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-600 hover:to-teal-700 rounded-xl transition shadow-lg active:scale-95"
+              className="btn-interactive whatsapp-pulse flex items-center gap-2 px-4 py-2.5 text-xs sm:text-sm font-black text-white bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-600 hover:to-teal-700 rounded-xl transition shadow-lg active:scale-95"
             >
               <MessageSquare className="w-4 h-4" />
               <span>Book on WhatsApp</span>
@@ -617,22 +692,22 @@ const Navbar = () => {
           <Link to="/" onClick={() => setMobileMenuOpen(false)} className="block py-2">
             Home
           </Link>
-          <a href="#about" onClick={() => setMobileMenuOpen(false)} className="block py-2">
+          <a href="#about" onClick={(e) => { scrollToSection(e, '#about'); setMobileMenuOpen(false); }} className="block py-2">
             About Doctor
           </a>
-          <a href="#services" onClick={() => setMobileMenuOpen(false)} className="block py-2">
+          <a href="#services" onClick={(e) => { scrollToSection(e, '#services'); setMobileMenuOpen(false); }} className="block py-2">
             Services & Conditions
           </a>
-          <a href="#reviews" onClick={() => setMobileMenuOpen(false)} className="block py-2">
+          <a href="#reviews" onClick={(e) => { scrollToSection(e, '#reviews'); setMobileMenuOpen(false); }} className="block py-2">
             Reviews & Cured Cases
           </a>
-          <a href="#branches" onClick={() => setMobileMenuOpen(false)} className="block py-2">
+          <a href="#branches" onClick={(e) => { scrollToSection(e, '#branches'); setMobileMenuOpen(false); }} className="block py-2">
             Our Branches
           </a>
-          <a href="#faq" onClick={() => setMobileMenuOpen(false)} className="block py-2">
+          <a href="#faq" onClick={(e) => { scrollToSection(e, '#faq'); setMobileMenuOpen(false); }} className="block py-2">
             FAQ
           </a>
-          <a href="#contact" onClick={() => setMobileMenuOpen(false)} className="block py-2">
+          <a href="#contact" onClick={(e) => { scrollToSection(e, '#contact'); setMobileMenuOpen(false); }} className="block py-2">
             Contact Us
           </a>
 
@@ -649,7 +724,7 @@ const Navbar = () => {
           <div className="pt-2 flex flex-col gap-2">
             <button
               onClick={() => { setMobileMenuOpen(false); openWhatsAppBooking(); }}
-              className="w-full text-center bg-gradient-to-r from-blue-900 to-blue-950 text-amber-300 py-2.5 rounded-xl font-bold shadow flex items-center justify-center gap-2 border border-amber-400/40"
+              className="btn-interactive w-full text-center bg-gradient-to-r from-blue-900 to-blue-950 text-amber-300 py-2.5 rounded-xl font-bold shadow flex items-center justify-center gap-2 border border-amber-400/40"
             >
               <MessageSquare className="w-4 h-4" />
               <span>Book Appointment on WhatsApp</span>
@@ -678,12 +753,26 @@ const MainHome = () => {
   const [openFaq, setOpenFaq] = useState(0);
   const [deptIndex, setDeptIndex] = useState(0);
 
+  // Initialize scroll reveal animations
+  useScrollReveal();
+
+  // Back to top functionality
+  const { showBackToTop, scrollToTop } = useBackToTop();
+
   // Step through the 4 departments one after another (wraps around)
   const goToDept = (next) =>
     setDeptIndex((i) => (next ? (i + 1) % SERVICES.length : (i - 1 + SERVICES.length) % SERVICES.length));
 
   return (
     <div className="flex-1 space-y-16 pb-20">
+      {/* Back to Top Button */}
+      <button
+        onClick={scrollToTop}
+        className={`back-to-top ${showBackToTop ? 'visible' : ''}`}
+        aria-label="Back to top"
+      >
+        <ArrowUp className="w-5 h-5" />
+      </button>
       {/* HERO SECTION */}
       <section className="relative maximalist-canvas pt-12 pb-20 lg:py-28 overflow-hidden border-b border-slate-200/80">
         {/* Background glows — gold + blue */}
@@ -693,7 +782,7 @@ const MainHome = () => {
 
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
           
-          <div className="lg:col-span-7 space-y-7 text-center lg:text-left">
+          <div className="lg:col-span-7 space-y-7 text-center lg:text-left scroll-reveal">
             {/* Pill badge */}
             <div className="gold-badge inline-flex items-center gap-2.5 px-5 py-2 rounded-full text-xs font-black tracking-wider uppercase shadow-md">
               <Award className="w-4 h-4 text-amber-800" />
@@ -717,7 +806,7 @@ const MainHome = () => {
               <button
                 onClick={() => openWhatsAppBooking()}
                 data-testid={HOME.heroBookBtn}
-                className="whatsapp-pulse w-full sm:w-auto bg-gradient-to-r from-emerald-500 via-teal-600 to-emerald-600 hover:from-emerald-600 hover:to-teal-700 text-white px-9 py-4 rounded-2xl font-black text-base shadow-xl hover:shadow-emerald-300/50 transition-all transform active:scale-95 flex items-center justify-center gap-3"
+                className="btn-interactive whatsapp-pulse w-full sm:w-auto bg-gradient-to-r from-emerald-500 via-teal-600 to-emerald-600 hover:from-emerald-600 hover:to-teal-700 text-white px-9 py-4 rounded-2xl font-black text-base shadow-xl hover:shadow-emerald-300/50 transition-all transform active:scale-95 flex items-center justify-center gap-3"
               >
                 <MessageSquare className="w-5 h-5" />
                 <span>Book Appointment on WhatsApp</span>
@@ -727,7 +816,7 @@ const MainHome = () => {
                 href={INSTAGRAM_LINK}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="instagram-btn w-full sm:w-auto px-8 py-4 rounded-2xl font-black text-base shadow-lg transition-all flex items-center justify-center gap-2.5"
+                className="btn-interactive instagram-btn w-full sm:w-auto px-8 py-4 rounded-2xl font-black text-base shadow-lg transition-all flex items-center justify-center gap-2.5"
               >
                 <Instagram className="w-5 h-5" />
                 <span>Instagram Profile</span>
@@ -756,7 +845,7 @@ const MainHome = () => {
           </div>
 
           {/* Doctor Hero Images - Two Doctors */}
-          <div className="lg:col-span-5 relative">
+          <div className="lg:col-span-5 relative scroll-reveal-right">
             <div className="grid grid-cols-2 gap-3 h-full">
 
               {/* ─── Dr. Vaishnavi Sawant Parab ─── */}
@@ -799,8 +888,8 @@ const MainHome = () => {
                     <span>{DR_VAISHNAVI_REGD}</span>
                   </p>
                   <button
-                    onClick={() => openWhatsAppBooking()}
-                    className="w-full bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-600 hover:to-teal-700 text-white font-black py-2 rounded-xl text-[10px] transition flex items-center justify-center gap-1 shadow-md mt-1"
+                    onClick={() => openWhatsAppBooking("", "Dr. Vaishnavi Sawant")}
+                    className="btn-interactive w-full bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-600 hover:to-teal-700 text-white font-black py-2 rounded-xl text-[10px] transition flex items-center justify-center gap-1 shadow-md mt-1"
                   >
                     <MessageSquare className="w-3 h-3" />
                     <span>Book on WhatsApp</span>
@@ -846,8 +935,8 @@ const MainHome = () => {
                     <span>{DR_ANIL_REGD}</span>
                   </p>
                   <button
-                    onClick={() => openWhatsAppBooking("Consultation")}
-                    className="w-full bg-gradient-to-r from-teal-600 to-emerald-600 hover:from-teal-500 hover:to-emerald-500 text-white font-black py-2 rounded-xl text-[10px] transition flex items-center justify-center gap-1 shadow-md mt-1"
+                    onClick={() => openWhatsAppBooking("", "Dr. Anil Parab")}
+                    className="btn-interactive w-full bg-gradient-to-r from-teal-600 to-emerald-600 hover:from-teal-500 hover:to-emerald-500 text-white font-black py-2 rounded-xl text-[10px] transition flex items-center justify-center gap-1 shadow-md mt-1"
                   >
                     <MessageSquare className="w-3 h-3" />
                     <span>Book on WhatsApp</span>
@@ -862,7 +951,7 @@ const MainHome = () => {
       </section>
 
       {/* OFFICIAL CLINIC SIGNBOARD DISPLAY */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 scroll-reveal">
         <div className="maximalist-dark-canvas rounded-3xl p-6 sm:p-10 text-white border-2 border-amber-400/50 shadow-[0_25px_60px_-10px_rgba(30,58,138,0.5)] relative overflow-hidden">
           {/* Luminous ambient glow */}
           <div className="absolute -right-10 -top-10 w-80 h-80 bg-amber-400/20 rounded-full blur-3xl pointer-events-none"></div>
@@ -925,7 +1014,7 @@ const MainHome = () => {
       </section>
 
       {/* TRUST POINTS BAR */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 scroll-reveal-scale">
         <div className="medical-card grid grid-cols-2 md:grid-cols-5 gap-0 divide-x divide-slate-100 p-0 rounded-2xl border border-slate-200/90 shadow-md overflow-hidden">
           {[
             { icon: Award,          label: "MD(Hom) Certified",    sub: "Regd. Physicians",       color: "bg-amber-50 text-amber-800 border-b-2 border-amber-300" },
@@ -946,7 +1035,7 @@ const MainHome = () => {
       </section>
 
       {/* DYNAMIC SERVICES & DEPARTMENT CONDITIONS SHOWCASE */}
-      <section id="services" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8">
+      <section id="services" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8 scroll-reveal">
         <div className="text-center space-y-3 max-w-2xl mx-auto mb-8">
           <h2 className="section-heading text-3xl font-extrabold text-slate-900">Clinical Departments &amp; Treatments</h2>
           <p className="text-slate-500 text-sm sm:text-base">
@@ -958,7 +1047,7 @@ const MainHome = () => {
         <div className="flex flex-wrap justify-center gap-2.5 sm:gap-3.5 mb-12">
           <button
             onClick={() => setActiveService("all")}
-            className={`flex items-center gap-2.5 px-6 py-3.5 rounded-2xl font-black text-xs sm:text-sm transition-all ${
+            className={`btn-interactive flex items-center gap-2.5 px-6 py-3.5 rounded-2xl font-black text-xs sm:text-sm transition-all ${
               activeService === "all"
                 ? "bg-gradient-to-r from-blue-900 to-blue-950 text-white shadow-xl scale-105 border-2 border-amber-400"
                 : "bg-white hover:bg-blue-50 text-blue-900 border-2 border-blue-100 shadow-sm hover:border-amber-300"
@@ -976,7 +1065,7 @@ const MainHome = () => {
                 key={s.id}
                 data-testid={s.testId}
                 onClick={() => setActiveService(s.id)}
-                className={`flex items-center gap-2.5 px-6 py-3.5 rounded-2xl font-black text-xs sm:text-sm transition-all ${
+                className={`btn-interactive flex items-center gap-2.5 px-6 py-3.5 rounded-2xl font-black text-xs sm:text-sm transition-all ${
                   isActive
                     ? "bg-gradient-to-r from-blue-900 to-blue-950 text-white shadow-xl scale-105 border-2 border-amber-400"
                     : "bg-white hover:bg-blue-50 text-blue-900 border-2 border-blue-100 shadow-sm hover:border-amber-300"
@@ -1230,7 +1319,8 @@ const MainHome = () => {
                         {displayedItems.map((item, idx) => (
                           <div
                             key={idx}
-                            className="medical-card rounded-2xl overflow-hidden flex flex-col justify-between group border border-slate-200/90"
+                            className="medical-card service-card-interactive rounded-2xl overflow-hidden flex flex-col justify-between group border border-slate-200/90 scroll-reveal"
+                            style={{ animationDelay: `${idx * 50}ms` }}
                           >
                             <div>
                               {/* Treatment Image */}
@@ -1259,7 +1349,7 @@ const MainHome = () => {
                             <div className="p-5 pt-0">
                               <button
                                 onClick={() => openWhatsAppBooking(item.title)}
-                                className="w-full bg-blue-50 hover:bg-blue-900 hover:text-white text-blue-900 font-bold py-2.5 rounded-xl text-xs transition-all flex items-center justify-center gap-1.5 border border-blue-100 shadow-xs group-hover:shadow group-hover:border-amber-300"
+                                className="btn-interactive w-full bg-blue-50 hover:bg-blue-900 hover:text-white text-blue-900 font-bold py-2.5 rounded-xl text-xs transition-all flex items-center justify-center gap-1.5 border border-blue-100 shadow-xs group-hover:shadow group-hover:border-amber-300"
                               >
                                 <MessageSquare className="w-3.5 h-3.5" />
                                 <span>Consult on WhatsApp</span>
@@ -1283,7 +1373,7 @@ const MainHome = () => {
       <section id="reviews" className="maximalist-canvas py-20 border-b border-slate-200/80 relative overflow-hidden">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12 relative z-10">
           
-          <div className="text-center space-y-4 max-w-3xl mx-auto">
+          <div className="text-center space-y-4 max-w-3xl mx-auto scroll-reveal">
             <div className="gold-badge inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-black uppercase tracking-wider shadow-sm">
               <Star className="w-4 h-4 fill-amber-700 text-amber-700" />
               <span>GENUINE GOOGLE REVIEWS &bull; VIRAR CLINIC</span>
@@ -1310,7 +1400,8 @@ const MainHome = () => {
             {VIRAR_GOOGLE_REVIEWS.map((review, idx) => (
               <div
                 key={idx}
-                className="maximalist-card bg-white rounded-3xl border-2 border-slate-200/90 flex flex-col justify-between space-y-4 relative overflow-hidden shadow-lg group hover:border-amber-400 transition-all duration-300"
+                className="maximalist-card bg-white rounded-3xl border-2 border-slate-200/90 flex flex-col justify-between space-y-4 relative overflow-hidden shadow-lg group hover:border-amber-400 transition-all duration-300 scroll-reveal"
+                style={{ animationDelay: `${idx * 80}ms` }}
               >
                 <div className="space-y-3 px-6 pt-6">
                   {/* Google Badge */}
@@ -1644,7 +1735,7 @@ const MainHome = () => {
       </section>
 
       {/* FAQ SECTION */}
-      <section id="faq" className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 pt-8">
+      <section id="faq" className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 pt-8 scroll-reveal">
         <div className="text-center space-y-3 mb-10">
           <div className="sapphire-badge inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-black uppercase tracking-wider shadow-sm">
             <CheckCircle2 className="w-4 h-4 text-blue-900" />
@@ -1655,38 +1746,56 @@ const MainHome = () => {
         </div>
 
         <div className="space-y-4">
-          {FAQS.map((faq, idx) => (
-            <div
-              key={idx}
-              className={`rounded-2xl border-2 transition-all duration-200 overflow-hidden shadow-sm ${
-                openFaq === idx
-                  ? "border-amber-400 bg-amber-50/30 shadow-md"
-                  : "border-blue-100 bg-white hover:border-amber-200"
-              }`}
-            >
-              <button
-                onClick={() => setOpenFaq(openFaq === idx ? -1 : idx)}
-                className="w-full text-left px-6 py-4.5 font-bold text-sm sm:text-base text-blue-950 flex justify-between items-center gap-4 hover:bg-blue-50/50 transition"
+          {FAQS.map((faq, idx) => {
+            const isOpen = openFaq === idx;
+            return (
+              <div
+                key={idx}
+                className={`faq-item rounded-2xl border-2 transition-all duration-300 overflow-hidden shadow-sm ${
+                  isOpen
+                    ? "border-amber-400 bg-amber-50/30 shadow-md"
+                    : "border-blue-100 bg-white hover:border-amber-200"
+                }`}
               >
-                <span className="font-extrabold">{faq.question}</span>
-                {openFaq === idx ? (
-                  <ChevronUp className="w-5 h-5 text-amber-600 shrink-0" />
-                ) : (
-                  <ChevronDown className="w-5 h-5 text-slate-400 shrink-0" />
-                )}
-              </button>
-              {openFaq === idx && (
-                <div className="px-6 pb-5 pt-1 text-slate-700 text-xs sm:text-sm leading-relaxed border-t border-amber-200/60 font-medium">
-                  {faq.answer}
+                <button
+                  onClick={() => setOpenFaq(isOpen ? -1 : idx)}
+                  onKeyDown={(e) => {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                      e.preventDefault();
+                      setOpenFaq(isOpen ? -1 : idx);
+                    }
+                  }}
+                  aria-expanded={isOpen}
+                  aria-controls={`faq-answer-${idx}`}
+                  className="w-full text-left px-6 py-4.5 font-bold text-sm sm:text-base text-blue-950 flex justify-between items-center gap-4 hover:bg-blue-50/50 transition focus:outline-none focus:ring-2 focus:ring-amber-400 focus:ring-offset-2 rounded-t-xl"
+                >
+                  <span className="font-extrabold">{faq.question}</span>
+                  {isOpen ? (
+                    <ChevronUp className="w-5 h-5 text-amber-600 shrink-0 transition-transform" />
+                  ) : (
+                    <ChevronDown className="w-5 h-5 text-slate-400 shrink-0 transition-transform" />
+                  )}
+                </button>
+                <div
+                  id={`faq-answer-${idx}`}
+                  role="region"
+                  aria-labelledby={`faq-question-${idx}`}
+                  className={`faq-answer ${isOpen ? 'open' : ''}`}
+                >
+                  {isOpen && (
+                    <div className="px-6 pb-5 pt-3 text-slate-700 text-xs sm:text-sm leading-relaxed border-t border-amber-200/60 font-medium">
+                      {faq.answer}
+                    </div>
+                  )}
                 </div>
-              )}
-            </div>
-          ))}
+              </div>
+            );
+          })}
         </div>
       </section>
 
       {/* CONTACT & LOCATION SECTION */}
-      <section id="contact" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-10">
+      <section id="contact" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-10 scroll-reveal">
         <div className="maximalist-dark-canvas text-white rounded-3xl p-8 sm:p-12 grid grid-cols-1 lg:grid-cols-12 gap-10 shadow-2xl border-2 border-amber-400/40 relative overflow-hidden">
           {/* Ambient Glows */}
           <div className="absolute -top-24 -right-24 w-96 h-96 bg-amber-400/10 rounded-full blur-3xl pointer-events-none"></div>
@@ -1723,7 +1832,7 @@ const MainHome = () => {
                 <MessageSquare className="w-5 h-5 text-emerald-400 shrink-0" />
                 <button
                   onClick={() => openWhatsAppBooking()}
-                  className="hover:underline text-left font-black text-emerald-300 text-sm"
+                  className="btn-interactive hover:underline text-left font-black text-emerald-300 text-sm"
                 >
                   WhatsApp Booking: +91 {CLINIC_PHONE}
                 </button>
@@ -1780,7 +1889,7 @@ const MainHome = () => {
       </section>
 
       {/* OUR CLINIC BRANCHES SECTION */}
-      <section id="branches" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+      <section id="branches" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 scroll-reveal">
         <div className="text-center space-y-4 mb-12">
           <div className="sapphire-badge inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-black uppercase tracking-wider shadow-sm">
             <MapPin className="w-4 h-4 text-blue-900" />
